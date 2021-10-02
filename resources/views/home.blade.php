@@ -76,20 +76,37 @@
       <label for="content" class="add-label">shop content</label>
       <textarea name="content" id="content" cols="30" rows="10" class="add-content"></textarea>
       <label for="genre_id" class="add-label">genre-id</label>
-      <input type="number" id="genre_id" name="genre_id">
+      {{-- <input type="number" id="genre_id" name="genre_id"> --}}
+
+      <input type="text" id="genre_id" name="genre_id" list="genreList"　required>
+          <datalist id="genreList">
+            @foreach ($genres->unique('id') as $genre)
+              <option value="{{$genre->id}}">
+                {{$genre->genre}}
+              </option>              
+            @endforeach
+          </datalist>
       <label for="area_id" class="add-label">area_id</label>
-      <input type="number" id="area_id" name="area_id">
+      <input type="text" id="area_id" name="area_id" list="areaList"　required>
+          <datalist id="areaList">
+            @foreach ($areas->unique('area') as $area)
+              <option value="{{$area->id}}">
+                {{$area->area}}
+              </option>              
+            @endforeach
+          </datalist>
+
       <button type="submit" name="shop">送信</button>
     </div>
     <div>
       <label for="registerGenre" class="add-label">Genre</label>
       <input type="text" id="registerGenre" name="registerGenre" class="add">
-      <button type="submit" name="genre">送信</button>
+      <button type="submit" name="genre">Genre登録</button>
     </div>
     <div>
       <label for="registerArea" class="add-label">Area</label>
       <input type="text" id="registerArea" name="registerArea" class="add">
-      <button type="submit" name="area">送信</button>
+      <button type="submit" name="area">Area登録</button>
     </div>
 </div>
 @endif

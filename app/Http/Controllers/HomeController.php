@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 
@@ -25,8 +27,18 @@ class HomeController extends Controller
             ->when(!empty($searchKeyword), function ($query) use ($searchKeyword) {
                 return $query->where('name','like','%'.$searchKeyword. '%')->orwhere('content','like','%'.$searchKeyword. '%');
             })->get();
+        if(auth()->id()==1){
+            $genres = Genre::all();
+            $areas = Area::all();
 
-        return view('home' ,compact('shops'));
+            return view('home',compact(['shops','genres','areas']));
+        }else{
+
+            return view('home' ,compact('shops'));
+        }
+        
+        
+
     }
     
 }
