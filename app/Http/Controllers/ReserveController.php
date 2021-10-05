@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reserve;
+use Illuminate\Support\Facades\Validator;
 
 class ReserveController extends Controller
 {
@@ -13,6 +14,14 @@ class ReserveController extends Controller
         if (!auth()->user()) {
             return redirect(route('login'));
         } else {
+            $rules = [
+                'reserved_date' => ['required', 'date','after:today'],
+                'reserved_time' => ['required','in:'. implode(',', config('time.timeList'))],
+                'number' => ['required', 'integer']
+            ];
+
+            $this->validate($request, $rules);
+
             $reserve = new Reserve();
             $reserve->user_id = auth()->id();
             $reserve->shop_id = $id;

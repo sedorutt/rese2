@@ -62,7 +62,18 @@
       </div>
     </div>
   </div>
+  @if ($errors->any())
+      <div class="alert alert-danger">
+      <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+      </div>
+  @endif
 </div>
+
+
 <script>
   let form_date = document.getElementById('form-date');
   let output_date = document.getElementById('output-date');
