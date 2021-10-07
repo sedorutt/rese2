@@ -39,6 +39,15 @@
               <input type="number" id="number" value="{{$book->number}}" name="number" placeholder="人数" min="1" required>
             <button type="submit" class="right">更新</button>
           </form>
+          @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
         </div>
       </div>
       @endforeach
