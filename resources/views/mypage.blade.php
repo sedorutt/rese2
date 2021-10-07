@@ -25,24 +25,20 @@
           <p>予約</p>
         </div>
         <div>
-          <table>
-            <tr>
-              <th>shop</th>
-              <td>{{$book->shop->name}}</td>
-            </tr>
-            <tr>
-              <th>予約日</th>
-              <td>{{$book->reserved_date}}</td>
-            </tr>
-            <tr>
-              <th>予約時間</th>
-              <td>{{$book->reserved_time}}</td>
-            </tr>
-            <tr>
-              <th>予約人数</th>
-              <td>{{$book->number}}</td>
-            </tr>
-          </table>
+          <form method="POST" action="{{route('update',$book->id)}}" class="update-form">
+            @csrf
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+              <label for="name">shop</label >
+              <input type="text" id="name" value="{{$book->shop->name}}" readonly class="readonly">
+              <label for="reserved_date">予約日</label >
+              <input type="date" id="reserved_date" value="{{$book->reserved_date}}" name="reserved_date" readonly class="readonly">
+              <label for="reserved_time">予約時間</label >
+              <input type="text" id="reserved_time" value="{{$book->reserved_time}}" name="reserved_time" readonly class="readonly">
+              <label for="number">予約人数</label >
+              <input type="number" id="number" value="{{$book->number}}" name="number" placeholder="人数" min="1" required>
+            <button type="submit" class="right">更新</button>
+          </form>
         </div>
       </div>
       @endforeach
@@ -142,18 +138,24 @@
   .fa-clock {
     padding-top: 6px;
   }
-  
-  table{
+  label{
+    width: 40%;
+  }
+  input{
+    width: 50%;
+    height: 2.5rem;
+    border-radius: 5px;
+    font-size: 3rem;
+  }
+  .readonly{
+    background-color: rgb(12, 92, 241);
+    border: none;
     color: #fff;
+    font-size: 18px;
   }
-  th {
-    padding-top: 10px ;
-    padding-bottom: 10px ;
-    padding-right: 40px;
-    font-size: 1.2rem;
-  }
-  td{
-    font-size: 1.2rem;
+  .right{
+    display: block;
+    margin-left: auto;
   }
   .mypage-right {
     width: 48%;

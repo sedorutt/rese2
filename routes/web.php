@@ -20,8 +20,9 @@ Route::post('/{id}',[FavoriteController::class ,'store'])->name('good')->middlew
 Route::delete('/{id}',[FavoriteController::class , 'destroy'])->name('normal')->middleware('auth');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/thanks', [ThanksController::class, 'index'])->name('thanks');
-Route::get('/mypage', [MypageController::class, 'index'])->name('mypage')->middleware('auth');
+Route::get('/mypage/{id?}', [MypageController::class, 'index'])->name('mypage')->middleware('auth');
+Route::put('/mypage/{id}', [ReserveController::class, 'update'])->name('update')->middleware('auth');
 Route::delete('/mypage/{id}', [ReserveController::class, 'destroy'])->name('destroy')->middleware('auth');
 Route::get('/detail/{id}', [DetailController::class, 'show'])->name('detail');
 Route::post('/detail/{id}', [ReserveController::class, 'store'])->name('reserve')->middleware('auth');
-Route::get('/done', [DoneController::class, 'index'])->name('done')->middleware('auth');
+Route::get('/detail/{id}/done', [DoneController::class, 'index'])->name('done')->middleware('auth');

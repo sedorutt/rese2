@@ -55,7 +55,6 @@
               </button>
           </form>
           @endif
-          {{-- !isNull($shop->favorite) || $shop->favorite->user_id !== auth()->id() ? 'good' : 'normal' --}}
         </div>
       </div>
     </div>
@@ -76,8 +75,6 @@
       <label for="content" class="add-label">shop content</label>
       <textarea name="content" id="content" cols="30" rows="10" class="add-content"></textarea>
       <label for="genre_id" class="add-label">genre-id</label>
-      {{-- <input type="number" id="genre_id" name="genre_id"> --}}
-
       <input type="text" id="genre_id" name="genre_id" list="genreList"　required>
           <datalist id="genreList">
             @foreach ($genres->unique('id') as $genre)

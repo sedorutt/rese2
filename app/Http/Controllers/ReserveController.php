@@ -33,6 +33,18 @@ class ReserveController extends Controller
             return view('done');
         }
     }
+    public function update(Request $request)
+    {
+        Reserve::where('id',$request->id)->update([
+            // 'reserved_date'=>$request->reserved_date,
+            // 'reserved_time'=>$request->reserved_time,
+            'number'=>$request->number
+        ]);
+
+        return redirect(route('mypage'));
+
+    }
+
     public function destroy($id)
     {
         Reserve::where('id',$id) -> delete();
