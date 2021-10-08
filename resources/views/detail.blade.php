@@ -25,13 +25,13 @@
         <p>予約</p>
       </div>
       <div class="detail-right-body">
-        <form class="book-form" action="{{route('reserve',$shop->id )}}" method="POST" >
+        <form class="book-form" action="{{ route('reserve',$shop->id) }}" method="POST" >
           {{ csrf_field() }}
           <input type="date" name="reserved_date" id="form-date" required>
           <input type="text" id="form-time" name="reserved_time" list="timeList"　required>
           <datalist id="timeList">
             @foreach ($times as $time)
-              <option value="{{$time}}">
+              <option value="{{ $time }}">
                 {{$time}}
               </option>              
             @endforeach

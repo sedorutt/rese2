@@ -13,7 +13,7 @@
       <p class="card-title bold">予約状況</p>
       @foreach ($books as $book)
       <div class="left-card">
-        <form action="{{route('destroy',$book->id)}}" method="POST" name="deleteForm">
+        <form action="{{ route('destroy',$book->id) }}" method="POST" name="deleteForm">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
           <button class="submit-btn" type="submit">
@@ -25,18 +25,24 @@
           <p>予約</p>
         </div>
         <div>
-          <form method="POST" action="{{route('update',$book->id)}}" class="update-form">
+          <form method="POST" action="{{ route('update',$book->id) }}" class="update-form">
             @csrf
             {{ csrf_field() }}
             {{ method_field('PUT') }}
               <label for="name">shop</label >
-              <input type="text" id="name" value="{{$book->shop->name}}" readonly class="readonly">
+              <input type="text" id="name" value="{{ $book->shop->name }}" readonly class="readonly">
               <label for="reserved_date">予約日</label >
-              <input type="date" id="reserved_date" value="{{$book->reserved_date}}" name="reserved_date" readonly class="readonly">
+              <input type="date" id="reserved_date" value="{{ $book->reserved_date }}" name="reserved_date">
               <label for="reserved_time">予約時間</label >
-              <input type="text" id="reserved_time" value="{{$book->reserved_time}}" name="reserved_time" readonly class="readonly">
+              <select type="text" id="reserved_time" value="{{ $book->reserved_time }}" name="reserved_time">
+                <option value="{{ $book->reserved_time }}" selected>{{ $book->reserved_time }}</option>
+                @foreach ($times as $time)
+                <option value="{{$time}}">{{$time}}</option>
+                @endforeach
+              </select>
+                
               <label for="number">予約人数</label >
-              <input type="number" id="number" value="{{$book->number}}" name="number" placeholder="人数" min="1" required>
+              <input type="number" id="number" value="{{ $book->number }}" name="number" placeholder="人数" min="1" required>
             <button type="submit" class="right">更新</button>
           </form>
           @if ($errors->any())
@@ -48,6 +54,7 @@
             </ul>
           </div>
           @endif
+          
         </div>
       </div>
       @endforeach
@@ -59,18 +66,18 @@
         @foreach ($favorite as $item)
         <div class="right-card ">
           <div class="card-image">
-            <img src="{{$item->shop->image}}" alt="shop" class="shop-image">
+            <img src="{{ $item->shop->image }}" alt="shop" class="shop-image">
           </div>
           <div class="card-text">
-            <p class="name">{{$item->shop->name}}</p>
-            <p class="tags inline">#{{$item->shop->area->area}}</p>
-            <p class="tags inline">#{{$item->shop->genre->genre}}</p>
+            <p class="name">{{ $item->shop->name }}</p>
+            <p class="tags inline">#{{ $item->shop->area->area }}</p>
+            <p class="tags inline">#{{ $item->shop->genre->genre }}</p>
             <div class="card-bottom">
-              <form action="{{route('detail',$item->shop->id)}}" name="detailForm">
+              <form action="{{ route('detail',$item->shop->id) }}" name="detailForm">
                 @csrf 
                 <button type="submit" class="btn btn-primary">詳しくみる</button>
               </form>
-              <form action="{{route('normal',$item->shop->id)}}" method="POST" class="mb-4" >
+              <form action="{{ route('normal',$item->shop->id) }}" method="POST" class="mb-4" >
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="goodBtn">
@@ -150,10 +157,12 @@
   label{
     width: 40%;
   }
-  input{
+  input ,
+  select{
     width: 50%;
     height: 2.5rem;
     border-radius: 5px;
+    border: 1px #000 solid;
     font-size: 3rem;
   }
   .readonly{

@@ -19,13 +19,15 @@ class ShopController extends Controller
             $shop->genre_id = $request->genre_id;
             $shop->area_id = $request->area_id;
             $shop->save();
+        }
 
-        }elseif($request->has('genre')){
+        if($request->has('genre')){
             $genre = new Genre();
             $genre->genre = $request->registerGenre;
             $genre->save();
-
-        }elseif($request->has('area')){
+        }
+        
+        if($request->has('area')){
             $area = new Area();
             $area->area = $request->registerArea;
             $area->save();

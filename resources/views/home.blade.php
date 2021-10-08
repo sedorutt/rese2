@@ -4,7 +4,7 @@
 <div class="header flex justify-between">
   <h2><a href="{{ route('menu') }}">Rese</a></h2>
   <div class="search">
-    <form class="form-inline form" *action="{{secure_url('/')}}" >
+    <form class="form-inline form" *action="{{ secure_url('/') }}" >
       @csrf
       <select name="searchArea" class="form-control select" >
         <option value="">All area</option>
@@ -32,22 +32,22 @@
       </div>
       <div class="card-text">
         <p class="name">{{ $shop->name }}</p>
-        <p class="tags inline">#{{$shop->area->area}}</p>
-        <p class="tags inline">#{{$shop->genre->genre}}</p>
+        <p class="tags inline">#{{ $shop->area->area }}</p>
+        <p class="tags inline">#{{ $shop->genre->genre }}</p>
         <div class="card-bottom flex column">
-          <form action="{{route('detail',$shop->id)}}" name="detailForm">
+          <form action="{{ route('detail',$shop->id) }}" name="detailForm">
             @csrf 
             <button type="submit" class="btn btn-primary">詳しくみる</button>
           </form>
           @if ($shop->favorite == null || $shop->favorite->user_id != auth()->id())
-          <form action="{{route('good',$shop->id)}}" method="POST" class="mb-4" >
+          <form action="{{ route('good',$shop->id) }}" method="POST" class="mb-4" >
           @csrf
             <button type="submit" class="goodBtn">
               <i class="fas fa-heart fa-lg" id="heart"></i>
             </button>
           </form>
           @else
-          <form action="{{route('normal',$shop->id)}}" method="POST" class="mb-4" >
+          <form action="{{ route('normal',$shop->id) }}" method="POST" class="mb-4" >
           @csrf
           @method('DELETE')
               <button type="submit" class="goodBtn">
@@ -87,8 +87,8 @@
       <input type="text" id="area_id" name="area_id" list="areaList"　required>
           <datalist id="areaList">
             @foreach ($areas->unique('area') as $area)
-              <option value="{{$area->id}}">
-                {{$area->area}}
+              <option value="{{ $area->id }}">
+                {{ $area->area }}
               </option>              
             @endforeach
           </datalist>
