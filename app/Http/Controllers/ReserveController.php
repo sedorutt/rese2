@@ -34,7 +34,7 @@ class ReserveController extends Controller
             return view('done');
         }
     }
-    public function update(Request $request)
+    public function update($id,Request $request)
     {
         $rules = [
             'reserved_date' => ['required', 'date', 'after:today'],
@@ -44,7 +44,7 @@ class ReserveController extends Controller
 
         $this->validate($request, $rules);
 
-        Reserve::where('id',$request->id)->update([
+        Reserve::where('id',$id)->update([
             'reserved_date'=>$request->reserved_date,
             'reserved_time'=>$request->reserved_time,
             'number'=>$request->number,
